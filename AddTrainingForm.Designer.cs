@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             dtpDate = new DateTimePicker();
-            lblDate = new Label();
             cmbType = new ComboBox();
             txtMinutes = new TextBox();
             txtNote = new TextBox();
             btnSave = new Button();
             btnCancel = new Button();
+            chkImportant = new CheckBox();
             SuspendLayout();
             // 
             // dtpDate
@@ -42,17 +42,8 @@
             dtpDate.Format = DateTimePickerFormat.Short;
             dtpDate.Location = new Point(12, 12);
             dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(124, 23);
+            dtpDate.Size = new Size(178, 23);
             dtpDate.TabIndex = 0;
-            // 
-            // lblDate
-            // 
-            lblDate.AutoSize = true;
-            lblDate.Location = new Point(182, 18);
-            lblDate.Name = "lblDate";
-            lblDate.Size = new Size(38, 15);
-            lblDate.TabIndex = 1;
-            lblDate.Text = "label1";
             // 
             // cmbType
             // 
@@ -61,14 +52,14 @@
             cmbType.Items.AddRange(new object[] { "Bieg", "Silownia", "Rower", "Plywanie", "Inne" });
             cmbType.Location = new Point(12, 41);
             cmbType.Name = "cmbType";
-            cmbType.Size = new Size(124, 23);
+            cmbType.Size = new Size(178, 23);
             cmbType.TabIndex = 2;
             // 
             // txtMinutes
             // 
             txtMinutes.Location = new Point(12, 70);
             txtMinutes.Name = "txtMinutes";
-            txtMinutes.Size = new Size(124, 23);
+            txtMinutes.Size = new Size(178, 23);
             txtMinutes.TabIndex = 3;
             // 
             // txtNote
@@ -76,12 +67,12 @@
             txtNote.Location = new Point(12, 99);
             txtNote.Multiline = true;
             txtNote.Name = "txtNote";
-            txtNote.Size = new Size(124, 80);
+            txtNote.Size = new Size(178, 80);
             txtNote.TabIndex = 4;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(12, 208);
+            btnSave.Location = new Point(12, 224);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(85, 28);
             btnSave.TabIndex = 5;
@@ -91,13 +82,23 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(114, 208);
+            btnCancel.Location = new Point(106, 224);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(84, 28);
             btnCancel.TabIndex = 6;
             btnCancel.Text = "Anuluj";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
+            // 
+            // chkImportant
+            // 
+            chkImportant.AutoSize = true;
+            chkImportant.Location = new Point(14, 185);
+            chkImportant.Name = "chkImportant";
+            chkImportant.Size = new Size(102, 19);
+            chkImportant.TabIndex = 7;
+            chkImportant.Text = "Wazny trening";
+            chkImportant.UseVisualStyleBackColor = true;
             // 
             // AddTrainingForm
             // 
@@ -106,12 +107,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new Size(364, 321);
+            Controls.Add(chkImportant);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(txtNote);
             Controls.Add(txtMinutes);
             Controls.Add(cmbType);
-            Controls.Add(lblDate);
             Controls.Add(dtpDate);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -126,11 +127,11 @@
         #endregion
 
         private DateTimePicker dtpDate;
-        private Label lblDate;
         private ComboBox cmbType;
         private TextBox txtMinutes;
         private TextBox txtNote;
         private Button btnSave;
         private Button btnCancel;
+        private CheckBox chkImportant;
     }
 }

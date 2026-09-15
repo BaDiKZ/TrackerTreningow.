@@ -28,10 +28,7 @@ namespace TrackerTreningow_
 
             if (lastSelectedTraining != null)
             {
-                dtpDate.Value = lastSelectedTraining.Date;
                 cmbType.SelectedItem = lastSelectedTraining.Type;
-                txtMinutes.Text = lastSelectedTraining.Minutes.ToString();
-                txtNote.Text = lastSelectedTraining.Note;
             }
         }
 
@@ -46,6 +43,7 @@ namespace TrackerTreningow_
             cmbType.SelectedItem = training.Type;
             txtMinutes.Text = training.Minutes.ToString();
             txtNote.Text = training.Note;
+            chkImportant.Checked = training.IsImportant;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -84,7 +82,8 @@ namespace TrackerTreningow_
                 Date = dtpDate.Value.Date,
                 Type = cmbType.Text,
                 Minutes = minutes,
-                Note = txtNote.Text.Trim()
+                Note = txtNote.Text.Trim(),
+                IsImportant = chkImportant.Checked
             };
 
             DialogResult = DialogResult.OK;

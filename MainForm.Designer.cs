@@ -40,6 +40,15 @@
             btnEdit = new Button();
             lblSaveInfo = new Label();
             btnOpen = new Button();
+            label2 = new Label();
+            txtSearch = new TextBox();
+            chkOnlyImportant = new CheckBox();
+            lblEmpty = new Label();
+            btnExport = new Button();
+            lblGoal = new Label();
+            pbGoal = new ProgressBar();
+            btnGoal = new Button();
+            btnStats = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTrainings).BeginInit();
             SuspendLayout();
             // 
@@ -63,9 +72,7 @@
             dgvTrainings.RowHeadersVisible = false;
             dgvTrainings.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTrainings.CellContentClick += dgvTrainings_CellContentClick_1;
-            dgvTrainings.CellMouseDoubleClick += dgvTrainings_CellMouseDoubleClick;
             dgvTrainings.SelectionChanged += dgvTrainings_SelectionChanged;
-            dgvTrainings.SizeChanged += dgvTrainings_SizeChanged;
             // 
             // lblSum
             // 
@@ -76,7 +83,6 @@
             // 
             resources.ApplyResources(lblCount, "lblCount");
             lblCount.Name = "lblCount";
-            lblCount.Click += lblInfo_Click;
             // 
             // btnDelete
             // 
@@ -97,7 +103,6 @@
             // 
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Click += label1_Click;
             // 
             // lblAvg
             // 
@@ -123,10 +128,73 @@
             btnOpen.UseVisualStyleBackColor = true;
             btnOpen.Click += btnOpen_Click;
             // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
+            // 
+            // txtSearch
+            // 
+            resources.ApplyResources(txtSearch, "txtSearch");
+            txtSearch.Name = "txtSearch";
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // chkOnlyImportant
+            // 
+            resources.ApplyResources(chkOnlyImportant, "chkOnlyImportant");
+            chkOnlyImportant.Name = "chkOnlyImportant";
+            chkOnlyImportant.UseVisualStyleBackColor = true;
+            chkOnlyImportant.CheckedChanged += chkOnlyImportant_CheckedChanged;
+            // 
+            // lblEmpty
+            // 
+            resources.ApplyResources(lblEmpty, "lblEmpty");
+            lblEmpty.Name = "lblEmpty";
+            // 
+            // btnExport
+            // 
+            resources.ApplyResources(btnExport, "btnExport");
+            btnExport.Name = "btnExport";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
+            // 
+            // lblGoal
+            // 
+            resources.ApplyResources(lblGoal, "lblGoal");
+            lblGoal.Name = "lblGoal";
+            // 
+            // pbGoal
+            // 
+            resources.ApplyResources(pbGoal, "pbGoal");
+            pbGoal.Name = "pbGoal";
+            // 
+            // btnGoal
+            // 
+            resources.ApplyResources(btnGoal, "btnGoal");
+            btnGoal.Name = "btnGoal";
+            btnGoal.UseVisualStyleBackColor = true;
+            btnGoal.Click += btnGoal_Click;
+            // 
+            // btnStats
+            // 
+            resources.ApplyResources(btnStats, "btnStats");
+            btnStats.Name = "btnStats";
+            btnStats.UseVisualStyleBackColor = true;
+            btnStats.Click += btnStats_Click;
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnStats);
+            Controls.Add(btnGoal);
+            Controls.Add(pbGoal);
+            Controls.Add(lblGoal);
+            Controls.Add(btnExport);
+            Controls.Add(lblEmpty);
+            Controls.Add(chkOnlyImportant);
+            Controls.Add(txtSearch);
+            Controls.Add(label2);
             Controls.Add(btnOpen);
             Controls.Add(lblSaveInfo);
             Controls.Add(btnEdit);
@@ -158,5 +226,14 @@
         private Button btnEdit;
         private Label lblSaveInfo;
         private Button btnOpen;
+        private Label label2;
+        private TextBox txtSearch;
+        private CheckBox chkOnlyImportant;
+        private Label lblEmpty;
+        private Button btnExport;
+        private Label lblGoal;
+        private ProgressBar pbGoal;
+        private Button btnGoal;
+        private Button btnStats;
     }
 }
