@@ -42,6 +42,7 @@
             btnClose = new Button();
             lblCount = new Label();
             lblLongest = new Label();
+            pnlTypes = new Panel();
             SuspendLayout();
             // 
             // cmbRange
@@ -70,10 +71,11 @@
             // cmbType
             // 
             cmbType.FormattingEnabled = true;
-            cmbType.Location = new Point(331, 355);
+            cmbType.Location = new Point(447, 287);
             cmbType.Name = "cmbType";
             cmbType.Size = new Size(427, 23);
             cmbType.TabIndex = 3;
+            cmbType.SelectedIndexChanged += cmbType_SelectedIndexChanged;
             // 
             // lblTotal
             // 
@@ -105,7 +107,7 @@
             // lblActiveDays
             // 
             lblActiveDays.AutoSize = true;
-            lblActiveDays.Location = new Point(401, 93);
+            lblActiveDays.Location = new Point(377, 93);
             lblActiveDays.Name = "lblActiveDays";
             lblActiveDays.Size = new Size(38, 15);
             lblActiveDays.TabIndex = 7;
@@ -114,7 +116,7 @@
             // lblStreak
             // 
             lblStreak.AutoSize = true;
-            lblStreak.Location = new Point(12, 137);
+            lblStreak.Location = new Point(484, 93);
             lblStreak.Name = "lblStreak";
             lblStreak.Size = new Size(38, 15);
             lblStreak.TabIndex = 8;
@@ -124,25 +126,27 @@
             // 
             pnlChart.BackColor = SystemColors.Control;
             pnlChart.BorderStyle = BorderStyle.FixedSingle;
-            pnlChart.Location = new Point(12, 187);
+            pnlChart.Location = new Point(12, 152);
             pnlChart.Name = "pnlChart";
             pnlChart.Size = new Size(427, 100);
             pnlChart.TabIndex = 9;
+            pnlChart.Paint += pnlChart_Paint;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(12, 312);
+            btnExport.Location = new Point(12, 287);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(75, 23);
+            btnExport.Size = new Size(127, 23);
             btnExport.TabIndex = 0;
             btnExport.Text = "Eksportuj";
             btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(137, 312);
+            btnClose.Location = new Point(309, 286);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(75, 23);
+            btnClose.Size = new Size(130, 23);
             btnClose.TabIndex = 10;
             btnClose.Text = "Zamknij";
             btnClose.UseVisualStyleBackColor = true;
@@ -150,7 +154,7 @@
             // lblCount
             // 
             lblCount.AutoSize = true;
-            lblCount.Location = new Point(150, 137);
+            lblCount.Location = new Point(629, 93);
             lblCount.Name = "lblCount";
             lblCount.Size = new Size(38, 15);
             lblCount.TabIndex = 11;
@@ -159,17 +163,28 @@
             // lblLongest
             // 
             lblLongest.AutoSize = true;
-            lblLongest.Location = new Point(275, 137);
+            lblLongest.Location = new Point(770, 93);
             lblLongest.Name = "lblLongest";
             lblLongest.Size = new Size(38, 15);
             lblLongest.TabIndex = 12;
             lblLongest.Text = "label1";
             // 
+            // pnlTypes
+            // 
+            pnlTypes.BackColor = SystemColors.Control;
+            pnlTypes.BorderStyle = BorderStyle.FixedSingle;
+            pnlTypes.Location = new Point(447, 152);
+            pnlTypes.Name = "pnlTypes";
+            pnlTypes.Size = new Size(427, 100);
+            pnlTypes.TabIndex = 10;
+            pnlTypes.Paint += pnlTypes_Paint;
+            // 
             // StatsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(886, 450);
+            Controls.Add(pnlTypes);
             Controls.Add(lblLongest);
             Controls.Add(lblCount);
             Controls.Add(btnClose);
@@ -186,7 +201,7 @@
             Controls.Add(cmbRange);
             Name = "StatsForm";
             Text = "StatsForm";
-            pnlChart.Paint += pnlChart_Paint;
+            Load += StatsForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -207,5 +222,6 @@
         private Button btnClose;
         private Label lblCount;
         private Label lblLongest;
+        private Panel pnlTypes;
     }
 }

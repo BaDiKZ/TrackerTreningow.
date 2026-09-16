@@ -116,5 +116,39 @@ namespace TrackerTreningow_
 
             return best;
         }
+
+        public static List<TypeTotal> MinutesByType(List<Training> list)
+        {
+            List<TypeTotal> result = new();
+
+            foreach (var group in list.GroupBy(t => t.Type))
+            {
+                result.Add(new TypeTotal
+                {
+                    Type = group.Key,
+                    Minutes = group.Sum(t => t.Minutes)
+                });
+            }
+
+            return result.OrderByDescending(x => x.Minutes).ToList();
+        }
+
+        public static int BestMonthMinutes(List<Training> list)
+        {
+            int best = 0;
+
+            // Klucz miesiąca jako jedna liczba: wrzesień 2026 to 202609.
+            foreach (var group in list.GroupBy(t => t.Date.Year * 100 + t.Date.Month))
+            {
+                int sum = group.Sum(t => t.Minutes);
+
+                if (sum > best)
+                {
+                    best = sum;
+                }
+            }
+
+            return best;
+        }
     }
 }

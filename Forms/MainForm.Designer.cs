@@ -49,6 +49,7 @@
             pbGoal = new ProgressBar();
             btnGoal = new Button();
             btnStats = new Button();
+            btnBadges = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTrainings).BeginInit();
             SuspendLayout();
             // 
@@ -182,10 +183,18 @@
             btnStats.UseVisualStyleBackColor = true;
             btnStats.Click += btnStats_Click;
             // 
+            // btnBadges
+            // 
+            resources.ApplyResources(btnBadges, "btnBadges");
+            btnBadges.Name = "btnBadges";
+            btnBadges.UseVisualStyleBackColor = true;
+            btnBadges.Click += btnBadges_Click;
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnBadges);
             Controls.Add(btnStats);
             Controls.Add(btnGoal);
             Controls.Add(pbGoal);
@@ -235,5 +244,6 @@
         private ProgressBar pbGoal;
         private Button btnGoal;
         private Button btnStats;
+        private Button btnBadges;
     }
 }

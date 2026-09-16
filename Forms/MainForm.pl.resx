@@ -304,16 +304,13 @@
     <value>Cel...</value>
   </data>
   <data name="btnStats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>797, 352</value>
-  </data>
-  <data name="btnStats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btnStats.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+    <value>716, 352</value>
   </data>
   <data name="btnStats.Text" xml:space="preserve">
     <value>Statystyki</value>
+  </data>
+  <data name="btnBadges.Text" xml:space="preserve">
+    <value>Odznaki</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>884, 521</value>

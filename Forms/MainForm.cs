@@ -1,8 +1,10 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Globalization;
 using TrackerTreningow;
+using TrackerTreningow_.Forms;
+using TrackerTreningow_.Managers;
 
 namespace TrackerTreningow_
 {
@@ -10,7 +12,7 @@ namespace TrackerTreningow_
     {
         private readonly JsonStore<Training> _trainingStore = new("trainings.json");
         private readonly JsonStore<MonthlyGoal> _goalStore = new("goals.json");
-
+        private readonly BadgeService _badges;
         private List<Training> _trainings = new();
         private List<MonthlyGoal> _goals = new();
         public Training? lastSelectedTraining = null;
@@ -24,6 +26,9 @@ namespace TrackerTreningow_
             _boldFont = new Font(dgvTrainings.Font, FontStyle.Bold);
             LoadData();
             RefreshGrid();
+
+            _badges = new BadgeService(new JsonStore<Badge>("badges.json"));
+            CheckBadges();
         }
 
         private void HighlightRows()
@@ -90,6 +95,7 @@ namespace TrackerTreningow_
                 lblCount.Text = $"Dodano trening: {form.NewTraining.Type} - {form.NewTraining.Minutes} minut";
             }
             SaveData();
+            CheckBadges();
         }
 
         private void dgvTrainings_SelectionChanged(object sender, EventArgs e)
@@ -202,6 +208,7 @@ namespace TrackerTreningow_
                 SaveData();
                 RefreshGrid();
             }
+            CheckBadges();
         }
 
         private void dgvTrainings_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -209,7 +216,6 @@ namespace TrackerTreningow_
             btnEdit_Click(sender, e);
         }
 
-        //zapois odczyt
         private void LoadData()
         {
             _trainings = _trainingStore.Load();
@@ -285,8 +291,8 @@ namespace TrackerTreningow_
             try
             {
                 string content = dialog.FilterIndex == 2
-                    ? BuildCsv(list)
-                    : BuildTextReport(list);
+                    ? RaportBuilder.BuildCsv(list)
+                    : RaportBuilder.BuildTextReport(list, dtpMonth.Value);
 
                 File.WriteAllText(dialog.FileName, content, Encoding.UTF8);
 
@@ -299,68 +305,6 @@ namespace TrackerTreningow_
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private string BuildTextReport(List<Training> list)
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine($"RAPORT TRENINGÓW — {dtpMonth.Value:yyyy-MM}");
-            sb.AppendLine(new string('=', 52));
-            sb.AppendLine();
-
-            foreach (var t in list.OrderBy(x => x.Date))
-            {
-                string star = t.IsImportant ? "*" : " ";
-
-                sb.AppendLine($"{star} {t.Date:yyyy-MM-dd}  {t.Type,-10}  {t.Minutes,4} min");
-
-                if (t.Note.Length > 0)
-                {
-                    sb.AppendLine($"                {t.Note}");
-                }
-            }
-
-            int total = list.Sum(t => t.Minutes);
-
-            sb.AppendLine();
-            sb.AppendLine(new string('=', 52));
-            sb.AppendLine($"Liczba treningów: {list.Count}");
-            sb.AppendLine($"Suma minut:       {total} ({FormatMinutes(total)})");
-            sb.AppendLine($"Średnia:          {total / list.Count} min");
-            sb.AppendLine();
-            sb.AppendLine($"Wygenerowano: {DateTime.Now:yyyy-MM-dd HH:mm}");
-
-            return sb.ToString();
-        }
-
-        private static string BuildCsv(List<Training> list)
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine("Data;Rodzaj;Minuty;Wazny;Notatka");
-
-            foreach (var t in list.OrderBy(x => x.Date))
-            {
-                sb.AppendLine(string.Join(';',
-                    t.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                    EscapeCsv(t.Type),
-                    t.Minutes.ToString(CultureInfo.InvariantCulture),
-                    t.IsImportant ? "tak" : "nie",
-                    EscapeCsv(t.Note)));
-            }
-
-            return sb.ToString();
-        }
-        private static string EscapeCsv(string value)
-        {
-            if (value.Contains(';') || value.Contains('"') || value.Contains('\n'))
-            {
-                return '"' + value.Replace("\"", "\"\"") + '"';
-            }
-
-            return value;
-        }
-
 
         // / Cel miesięczny
 
@@ -423,6 +367,27 @@ namespace TrackerTreningow_
         private void btnStats_Click(object sender, EventArgs e)
         {
             using var form = new StatsForm(_trainings);
+            form.ShowDialog(this);
+        }
+
+        //badges 
+
+        private void CheckBadges()
+        {
+            var fresh = _badges.Check(_trainings);
+
+            if (fresh.Count == 0) return;
+
+            string list = string.Join(Environment.NewLine,
+                fresh.Select(b => $"• {b.Name} — {b.Description}"));
+
+            MessageBox.Show($"Nowa odznaka!{Environment.NewLine}{Environment.NewLine}{list}",
+                "Gratulacje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnBadges_Click(object sender, EventArgs e)
+        {
+            using var form = new BadgeForm(_badges);
             form.ShowDialog(this);
         }
     }
