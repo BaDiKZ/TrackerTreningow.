@@ -1,3 +1,5 @@
+using TrackerTreningow_.Forms;
+
 namespace TrackerTreningow_
 {
     internal static class Program
@@ -11,7 +13,14 @@ namespace TrackerTreningow_
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+
+            using var profileForm = new ProfileForm();
+            if(profileForm.ShowDialog() != DialogResult.OK || profileForm.SelectedProfile == null)
+            {
+                return;
+            }
+
+            Application.Run(new MainForm(profileForm.SelectedProfile));
         }
     }
 }

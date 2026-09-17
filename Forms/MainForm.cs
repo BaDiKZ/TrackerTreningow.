@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -10,8 +11,9 @@ namespace TrackerTreningow_
 {
     public partial class MainForm : Form
     {
-        private readonly JsonStore<Training> _trainingStore = new("trainings.json");
-        private readonly JsonStore<MonthlyGoal> _goalStore = new("goals.json");
+        private readonly UserProfile _profile;
+        private readonly JsonStore<Training> _trainingStore;
+        private readonly JsonStore<MonthlyGoal> _goalStore;
         private readonly BadgeService _badges;
         private List<Training> _trainings = new();
         private List<MonthlyGoal> _goals = new();
@@ -20,14 +22,26 @@ namespace TrackerTreningow_
         private Font? _boldFont;
 
 
-        public MainForm()
+        [Obsolete("Tylko dla Designera")]
+        public MainForm() : this(new UserProfile { Name = "Podgląd" })
+        {
+        }
+
+        public MainForm(UserProfile profile)
         {
             InitializeComponent();
+
+            _profile = profile;
+
+            _trainingStore = new("trainings.json", profile.FolderName);
+            _goalStore = new("goals.json", profile.FolderName);
+            _badges = new(new JsonStore<Badge>("badges.json", profile.FolderName));
             _boldFont = new Font(dgvTrainings.Font, FontStyle.Bold);
+ 
+            Text = $"Tracker Treningów - Profil: {_profile.Name}";
+
             LoadData();
             RefreshGrid();
-
-            _badges = new BadgeService(new JsonStore<Badge>("badges.json"));
             CheckBadges();
         }
 

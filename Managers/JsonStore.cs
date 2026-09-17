@@ -15,11 +15,15 @@ namespace TrackerTreningow
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
-        public JsonStore(string fileName)
+        public JsonStore(string fileName,string? subFolder = null)
         {
             _folder = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "TrackerTreningow");
+            if (subFolder != null)
+            {
+                _folder = Path.Combine(_folder, subFolder);
+            }
 
             _file = Path.Combine(_folder, fileName);
         }
